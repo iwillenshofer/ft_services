@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  ports:
+    - port: 80
+      nodePort: 5000
+  selector:
+    app: phpmyadmin
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: phippy-phpmyadmin
+        name: phpmyadmin
+        imagePullPolicy: Never
+        envFrom:      
+        - configMapRef:
+            name: env-app-config
+
+ 
