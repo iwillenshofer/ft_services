@@ -1,0 +1,46 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  selector:
+    app: influxdb
+  ports:
+    - name: influx-pt1
+      port: 8086
+    - name: influx-pt2
+      port: 8088
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: influxdb
+        image: phippy-influxdb
+        imagePullPolicy: Never
+        volumeMounts:
+        - name: influx-persistent-storage
+          mountPath: /influxdata
+      volumes:
+      - name: influx-persistent-storage
+        persistentVolumeClaim:
+          claimName: influx-pv-claim

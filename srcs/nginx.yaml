@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      name: http
+    - port: 443
+      name: https
+    - port: 22000
+      name: ssh
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: nginx
+        image: phippy-nginx
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 22000
+          protocol: TCP
+        envFrom:      
+        - configMapRef:
+            name: env-app-config
