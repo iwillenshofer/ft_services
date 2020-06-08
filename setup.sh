@@ -58,13 +58,11 @@ then
 
 	#------------------ minikube --------------------#
 
-	if [ ! $(which minikube) == "" ]
-	then
-		echo -e "${GREEN}Minikube found...${NC}";
-	else
-		curl -LO "https://storage.googleapis.com/minikube/releases/latest/minikube-${SYSTEM_TYPE}-amd64"
-		sudo install "minikube-${SYSTEM_TYPE}-amd64" /usr/local/bin/minikube
-	fi
+	echo -e "${GREEN}Installing/Updating Minikube...${NC}";
+	sudo mkdir -p /usr/local/bin/
+	curl -Lo minikube "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
+	sudo install minikube /usr/local/bin/minikube
+
 	sudo minikube delete
 	sudo apt install conntrack
 
