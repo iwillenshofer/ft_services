@@ -25,9 +25,9 @@ then
 	docker ps > /dev/null;
     if [[ $? == 1 ]];
     then
-        printf "${RED}Docker doesn't have the right permissions${NC}";
+        printf "${RED}Docker doesn't have the right permissions\n${NC}";
         sudo usermod -aG docker $USER;
-        printf "${GREEN}Permissions were applied. Please log out and in again...${NC}";
+        printf "${GREEN}Permissions were applied. Please log out and in again... (or su ${USER}\n${NC}";
         exit 1;
 
     fi
