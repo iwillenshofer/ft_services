@@ -42,6 +42,7 @@ spec:
         ports:
         - containerPort: 22000
           protocol: TCP
+          hostPort: 22000
         envFrom:      
         - configMapRef:
             name: env-app-config

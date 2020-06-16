@@ -5,8 +5,11 @@ metadata:
   labels:
     app: grafana
 spec:
+  type: NodePort
   ports:
     - port: 3000
+      protocol: TCP
+      nodePort: 3000
   selector:
     app: grafana
 ---
@@ -27,6 +30,7 @@ spec:
       labels:
         app: grafana
     spec:
+      restartPolicy: Always
       containers:
       - image: phippy-grafana
         name: grafana

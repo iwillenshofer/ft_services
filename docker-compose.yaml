@@ -1,0 +1,46 @@
+version: "3.3"
+services:
+  ft_nginx:
+    build: ./srcs/Nginx/
+    image: phippy-nginx
+    ports:
+    - "80:80"
+    - "443:443"
+
+  ft_mysql:
+    build: ./srcs/MySQL/
+    image: phippy-mysql
+    ports:
+    - "3306:3306"
+  
+  ft_wordpress:
+    build: ./srcs/WordPress/
+    image: phippy-wordpress
+    ports:
+    - "5050:5050"
+
+  ft_phpmyadmin:
+    build: ./srcs/Phpmyadmin/
+    image: phippy-phpmyadmin
+    ports:
+    - "5000:5000"
+  
+  ft_grafana:
+    build: ./srcs/Grafana/
+    image: phippy-grafana
+    ports:
+    - "3000:3000"
+  
+  ft_ftps:
+    build: ./srcs/FTPS/
+    image: phippy-ftps
+    ports:
+    - "21:21"
+    - "21000:21000"
+  
+  ft_influx:
+    build: ./srcs/influxDB/
+    image: phippy-influxdb
+    ports:
+    - "8086:8086"
+    - "8080:8080"

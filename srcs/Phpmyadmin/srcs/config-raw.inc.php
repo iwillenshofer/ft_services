@@ -19,7 +19,9 @@ $cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['password'] = '';
 
 /* End of servers configuration */
-$cfg['PmaAbsoluteUri'] = 'http://__MINIKUBE_IP__/phpmyadmin/'; 
+#$cfg['PmaAbsoluteUri'] =  $_SERVER[HTTP_HOST].dirname($_SERVER[SCRIPT_NAME]);
+
+//$cfg['PmaAbsoluteUri'] = 'http://__MINIKUBE_IP__/phpmyadmin/'; 
 $cfg['blowfish_secret'] = 'J=[:fP<1.A;"L]u!43(k?<VNP[:C<O-R';
 $cfg['DefaultLang'] = 'en';
 $cfg['ServerDefault'] = 1;

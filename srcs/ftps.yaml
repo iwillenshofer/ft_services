@@ -32,6 +32,7 @@ spec:
       labels:
         app: ftps
     spec:
+      restartPolicy: Always
       containers:
       - name: phippy-ftps
         image: phippy-ftps

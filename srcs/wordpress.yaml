@@ -5,9 +5,11 @@ metadata:
   labels:
     app: wordpress
 spec:
+  type: NodePort
   ports:
     - port: 5050
       protocol: TCP
+      nodePort: 5050
   selector:
     app: wordpress
 

@@ -80,8 +80,9 @@ then
 	#--------------- start minikube -----------------#
 
 	echo -e "${GREEN}Starting Minikube...${NC}"
-	minikube start --driver=docker #--extra-config=apiserver.service-node-port-range=3000-35000
+	minikube start --driver=docker --extra-config=apiserver.service-node-port-range=3000-35000
 	minikube addons enable ingress
+	minikube addons enable dashboard
 	minikube addons enable metrics-server
 
 fi
@@ -104,24 +105,10 @@ sed -i "s|__MINIKUBE_IP__|${MINIKUBE_IP}|g" ./srcs/FTPS/srcs/setup.sh
 
 #------------------- build containers ---------------------#
 
+minikube -p minikube docker-env
 eval $(minikube docker-env)
 
-echo -e "${GREEN}Building Containers... this may take a while...${NC}";
-echo -e "${MAGENTA}Mysql...${NC}";
-docker build -t phippy-mysql srcs/MySQL >& /dev/null
-echo -e "${MAGENTA}Nginx...${NC}";
-docker build -t phippy-nginx srcs/Nginx >& /dev/null
-echo -e "${MAGENTA}Wordpress...${NC}";
-docker build -t phippy-wordpress srcs/WordPress >& /dev/null
-echo -e "${MAGENTA}Influxdb...${NC}";
-docker build -t phippy-influxdb srcs/influxDB >& /dev/null
-echo -e "${MAGENTA}Ftp...${NC}";
-docker build -t phippy-ftps srcs/FTPS >& /dev/null
-echo -e "${MAGENTA}Grafana...${NC}";
-docker build -t phippy-grafana srcs/Grafana >& /dev/null
-echo -e "${MAGENTA}Phpmyadmin...${NC}";
-docker build -t phippy-phpmyadmin srcs/Phpmyadmin >& /dev/null
-
+docker-compose build
 #------------------- apply YAMLs ---------------------#
 
 echo -e "${GREEN}Applying YAMLs...${NC}";
@@ -138,14 +125,15 @@ kubectl apply -f srcs/influxdb.yaml
 kubectl apply -f srcs/grafana.yaml
 
 #---- remove tmp files
-rm ./srcs/Nginx/srcs/index.html
-rm ./srcs/FTPS/srcs/setup.sh
-rm ./srcs/Phpmyadmin/srcs/config.inc.php
+rm -f ./srcs/Nginx/srcs/index.html
+rm -f ./srcs/FTPS/srcs/setup.sh
+rm -f ./srcs/Phpmyadmin/srcs/config.inc.php
+rm -f minikube
+rm -f compose
 
 #---- start ingress
 kubectl wait --namespace=kube-system --for=condition=Ready pods --all --timeout 90s
 kubectl apply -f srcs/ingress.yaml
-kubectl patch deployment ingress-nginx-controller --patch "$(cat ./srcs/Ingress/controller-patch.yaml)" -n kube-system
 
 #---- start dashboard
 echo -e "${NC}";
