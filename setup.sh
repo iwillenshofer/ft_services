@@ -105,8 +105,7 @@ sed -i "s|__MINIKUBE_IP__|${MINIKUBE_IP}|g" ./srcs/FTPS/srcs/setup.sh
 
 #------------------- build containers ---------------------#
 
-minikube -p minikube docker-env
-eval $(minikube docker-env)
+eval $(minikube -p minikube docker-env)
 
 docker-compose build
 #------------------- apply YAMLs ---------------------#
