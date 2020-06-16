@@ -27,7 +27,7 @@ then
     then
         printf "${RED}Docker doesn't have the right permissions\n${NC}";
         sudo usermod -aG docker $USER;
-        printf "${GREEN}Permissions were applied. Please log out and in again... (or su ${USER}\n${NC}";
+        printf "${GREEN}Permissions were applied. Please log out and in again... (or su ${USER})\n${NC}";
         exit 1;
 
     fi
