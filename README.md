@@ -1,6 +1,6 @@
 <p align="center">
-	<img width="130px;" src="https://game.42sp.org.br/static/assets/images/42_logo_black.svg" align="center" alt="42" />&nbsp;&nbsp;&nbsp;
-	<img width="130px" src="https://game.42sp.org.br/static/assets/achievements/ft_servicesm.png" align="center" alt="ft_services" />
+	<img width="130px;" src="https://raw.githubusercontent.com/iwillenshofer/resources/main/images/42_logo_black.svg" align="center" alt="42" />&nbsp;&nbsp;&nbsp;
+	<img width="130px" src="https://raw.githubusercontent.com/iwillenshofer/resources/main/achievements/ft_services.png" align="center" alt="ft_services" />
 	<h1 align="center">ft_services</h1>
 </p>
 <p align="center">
@@ -21,11 +21,11 @@
 </p>
 <br>
 
-> _This project consist to clusturing an docker-compose application and deploy 
+> _This project consist to clusturing an docker-compose application and deploy
 it with Kubernetes.
 _
 
-[Download the Subject ⤓](en.subject.pdf)
+
 
 <br>
 
@@ -85,4 +85,4 @@ Metrics visualization tool with dashboards.
 Simple and secure FTP service with SSL security availability, connected to the mounting point on the Wordpress data directory.
 
 ` port 8086 ` **InfluxDB**
-Time-series database system, which stores cluster metrics data to be available to the Grafana pod as a visualization tool. 
+Time-series database system, which stores cluster metrics data to be available to the Grafana pod as a visualization tool.
